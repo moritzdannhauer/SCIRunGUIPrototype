@@ -48,8 +48,11 @@
 #include <algorithm>
 
 using namespace SCIRun;
+using namespace SCIRun::Core::Datatypes;
 using namespace SCIRun::Core::Algorithms::FiniteElements;
-
+using namespace SCIRun::Core::Geometry;
+using namespace SCIRun::Core::Utilities;
+using namespace SCIRun::Core::Algorithms;
 
 class TDCSMatrixBuilder
 {
@@ -70,7 +73,7 @@ public:
 
 private:
   VMesh *mesh_;
-  AlgoBase* algo_;
+  AlgorithmBase* algo_;
 
   std::vector<unsigned int> electrodes_;
   
@@ -749,5 +752,3 @@ bool BuildTDCSMatrix::run(MatrixHandle stiff, FieldHandle mesh, MatrixHandle Ele
 
 BuildTDCSMatrix::BuildTDCSMatrix() {}
 BuildTDCSMatrix::~BuildTDCSMatrix() {}
-
-} // end namespace SCIRun

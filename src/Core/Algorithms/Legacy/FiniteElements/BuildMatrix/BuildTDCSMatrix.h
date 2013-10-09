@@ -52,8 +52,8 @@ class SCISHARE BuildTDCSMatrix : public AlgorithmBase
   public:
   BuildTDCSMatrix();
   ~BuildTDCSMatrix();
-  bool run(MatrixHandle stiff, FieldHandle mesh, MatrixHandle ElectrodeElements, MatrixHandle ElectrodeElementType, MatrixHandle ElectrodeElementDefinition, MatrixHandle contactimpedance, MatrixHandle& output);
-}; // end namespace SCIRun
+  bool run(Datatypes::MatrixHandle stiff, FieldHandle mesh, Datatypes::MatrixHandle ElectrodeElements, Datatypes::MatrixHandle ElectrodeElementType, Datatypes::MatrixHandle ElectrodeElementDefinition, Datatypes::MatrixHandle contactimpedance, Datatypes::MatrixHandle& output);
+};
 
 			}}}}
 #endif 
