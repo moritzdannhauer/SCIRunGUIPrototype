@@ -173,10 +173,15 @@ namespace SCIRun {
           addModuleDesc<AddKnownsToLinearSystem>("AddKnownsToLinearSystem", "Math", "SCIRun", " in progress ", " adds knowns to linear systems ");        
           addModuleDesc<CalculateVectorMagnitudes>("CalculateVectorMagnitudes", "ChangeFieldData", "SCIRun", "Real ported module", "...");
           addModuleDesc<GetFieldData>("GetFieldData", "ChangeMesh", "SCIRun", "Real ported module", "...");
+<<<<<<< HEAD
    
 	}
 
         }
+=======
+          addModuleDesc<InterfaceWithCleaverModule>("InterfaceWithCleaver", "NewField", "SCIRun", "New Module to interact with cleaver", "...");
+	      }
+>>>>>>> ef42770... Fix bad merge
 
         ModuleDescriptionMap descMap_;
 
