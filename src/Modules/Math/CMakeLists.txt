@@ -27,10 +27,7 @@
 #
 
 SET(Modules_Math_SRCS
-<<<<<<< HEAD
-=======
   #GetSubmatrix.cc 
->>>>>>> 16fd165... Remove GetSubMatrix: do it later
   AppendMatrix.cc
   CreateMatrix.cc
   EvaluateLinearAlgebraUnary.cc
@@ -43,10 +40,7 @@ SET(Modules_Math_SRCS
 )
 
 SET(Modules_Math_HEADERS
-<<<<<<< HEAD
-=======
   #GetSubmatrix.h
->>>>>>> 16fd165... Remove GetSubMatrix: do it later
   AppendMatrix.h
   CreateMatrix.h
   EvaluateLinearAlgebraUnary.h
