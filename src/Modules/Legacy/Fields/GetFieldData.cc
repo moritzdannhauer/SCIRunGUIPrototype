@@ -25,35 +25,37 @@
    FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
    DEALINGS IN THE SOFTWARE.
 */
-
 #include <Modules/Legacy/Fields/GetFieldData.h>
+#include <Core/Algorithms/Legacy/Fields/FieldData/GetFieldData.h>
 #include <Core/Datatypes/Matrix.h>
 #include <Core/Datatypes/Legacy/Field/Field.h>
+#include <Core/Datatypes/DenseMatrix.h>
+#include <Core/Datatypes/Matrix.h>
 
 using namespace SCIRun::Modules::Fields;
+using namespace SCIRun::Core::Algorithms::Fields;
 using namespace SCIRun::Dataflow::Networks;
 using namespace SCIRun::Core::Datatypes;
+using namespace SCIRun;
 
-GetFieldData::GetFieldData()
-  : Module(ModuleLookupInfo("GetFieldData", "ChangeMesh", "SCIRun"), false)
+GetFieldDataModule::GetFieldDataModule()
+  : Module(ModuleLookupInfo("GetFieldData", "NewField", "SCIRun"), false)
 {
   INITIALIZE_PORT(InputField);
-  INITIALIZE_PORT(MatrixNodes);
+  INITIALIZE_PORT(OutputMatrix);
 }
 
-void GetFieldData::execute()
+void GetFieldDataModule::execute()
 {
   FieldHandle input = getRequiredInput(InputField);
 
   //NO Nrrd support yet !!!
-
   //inputs_changed_ || !oport_cached("Matrix Nodes")
-  if (needToExecute())
-  {    
-    update_state(Executing);
-
+  //if (needToExecute())
+  //{    
+  //  update_state(Executing);
     auto output = algo().run_generic(make_input((InputField, input)));
 
-    sendOutputFromAlgorithm(MatrixNodes, output);
-  }
+    sendOutputFromAlgorithm(OutputMatrix, output);
+  //}
 }
