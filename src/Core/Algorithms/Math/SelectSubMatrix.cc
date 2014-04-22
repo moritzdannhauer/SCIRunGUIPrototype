@@ -61,12 +61,12 @@ MatrixHandle SelectSubMatrixAlgorithm::get_sub_matrix(MatrixHandle& input_matrix
     if (rows)
      if (rows->nrows()>0 && rows->ncols()>0)
      {
-      int nr=rows->nrows(), nc=rows->ncols();
+      index_type nr=rows->nrows(), nc=rows->ncols();
       if (nr==0) nr=1; if (nc==0) nc=1;
       sel_rows.resize(nr*nc);
 
-      for (int i=0; i < nr; i++) 
-        for (int j=0; j < nc; j++) 
+      for (index_type i=0; i < nr; i++) 
+        for (index_type j=0; j < nc; j++) 
 	  {
            sel_rows[count++] = static_cast<index_type>((* rows)(i,j)); 
 	  }
@@ -78,11 +78,11 @@ MatrixHandle SelectSubMatrixAlgorithm::get_sub_matrix(MatrixHandle& input_matrix
     if (cols)
      if (cols->nrows()>0 && cols->ncols()>0)
      {
-      int nr=cols->nrows(), nc=cols->ncols();
+      index_type nr=cols->nrows(), nc=cols->ncols();
       if (nr==0) nr=1; if (nc==0) nc=1;
       sel_cols.resize(nr*nc);
-      for (int i=0; i < nr; i++) 
-        for (int j=0; j < nc; j++) 
+      for (index_type i=0; i < nr; i++) 
+        for (index_type j=0; j < nc; j++) 
            sel_cols[count++] = static_cast<index_type>((* cols)(i,j));	   
      } 
   }
@@ -227,8 +227,8 @@ MatrixHandle SelectSubMatrixAlgorithm::run(MatrixHandle input_matrix, std::vecto
    {
      m=rows.size();
      n=cols.size();
-     for (int i=0; i< rows.size(); i++) 
-      for (int j=0; j < cols.size(); j++) 
+     for (index_type i=0; i< rows.size(); i++) 
+      for (index_type j=0; j < cols.size(); j++) 
       {
        auto tmp = sparse_matrix->coeff(rows[i],cols[j]);
        if (tmp) additionalData[rows[i]][cols[j]]=tmp;
@@ -277,8 +277,8 @@ MatrixHandle SelectSubMatrixAlgorithm::run(MatrixHandle input_matrix, std::vecto
    {
       DenseMatrix mat(rows.size(),cols.size());
 
-      for (int i = 0; i < rows.size(); i++)
-        for (int j = 0; j < cols.size(); j++)
+      for (index_type i = 0; i < rows.size(); i++)
+        for (index_type j = 0; j < cols.size(); j++)
          (mat)(i,j) = dense_input_matrix->coeff(rows[i],cols[j]);
       
       DenseMatrixHandle  output(boost::make_shared<DenseMatrix>(mat));   
@@ -291,7 +291,7 @@ MatrixHandle SelectSubMatrixAlgorithm::run(MatrixHandle input_matrix, std::vecto
    {
       DenseMatrix mat(rows.size(),n);
 
-      for (int i = 0; i < rows.size(); i++)
+      for (index_type i = 0; i < rows.size(); i++)
         mat.row(i) = dense_input_matrix->row(rows[i]);
             
       DenseMatrixHandle  output(boost::make_shared<DenseMatrix>(mat));       
@@ -303,7 +303,7 @@ MatrixHandle SelectSubMatrixAlgorithm::run(MatrixHandle input_matrix, std::vecto
    {
       DenseMatrix mat(m,cols.size());
 
-      for (int i = 0; i < cols.size(); i++)
+      for (index_type i = 0; i < cols.size(); i++)
          if (cols[i]>0) mat.col(i) = dense_input_matrix->col(cols[i]);
       
       DenseMatrixHandle  output(boost::make_shared<DenseMatrix>(mat));   
