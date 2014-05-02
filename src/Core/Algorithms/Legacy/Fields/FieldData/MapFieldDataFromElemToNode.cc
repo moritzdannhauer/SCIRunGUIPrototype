@@ -62,7 +62,6 @@ MapFieldDataFromElemToNodeT(const MapFieldDataFromElemToNodeAlgo *algo,
 {
 			    
   std::string method = algo->get_option(MapFieldDataFromElemToNodeAlgo::Method);
-  std::cout << "method:" << method << std::endl;
   VField *ifield = input->vfield();
   VField *ofield = output->vfield();
 
