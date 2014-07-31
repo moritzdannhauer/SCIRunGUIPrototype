@@ -47,6 +47,7 @@
 #include <vector>
 #include <algorithm>
 
+
 using namespace SCIRun;
 using namespace SCIRun::Core::Datatypes;
 using namespace SCIRun::Core::Algorithms::Fields;
@@ -55,16 +56,18 @@ using namespace SCIRun::Core::Geometry;
 
 /// Internal function to this algorithm: no need for this function to be
 /// public. It is called from the algorithm class only.
+/// This is the basic algorithm behind the mapping algorithm		    
+template <class DATA> 		    
+bool
+ApplyMappingMatrixT(const ApplyMappingMatrixAlgo* algo,
+                    const VField* input, VField* output,
+                    SparseRowMatrixHandle mapping);
+
+/// This is the basic algorithm behind the mapping algorithm
 template <class DATA> 
 bool
 ApplyMappingMatrixT(const ApplyMappingMatrixAlgo* algo,
-                    VField* input, VField* output,
-                    SparseRowMatrixHandle mapping);
-
-template <class DATA>
-bool 
-ApplyMappingMatrixT(const ApplyMappingMatrixAlgo* algo,
-                    VField* input, VField* output,
+                    const VField* input, VField* output,
                     SparseRowMatrixHandle mapping)
 {
   double* vals = mapping->valuePtr();
@@ -79,10 +82,9 @@ ApplyMappingMatrixT(const ApplyMappingMatrixAlgo* algo,
   index_type rr = rows[idx];
   size_type  ss = rows[idx+1]-rows[idx];
   input->get_weighted_value(val,&(columns[rr]),&(vals[rr]),ss);
-  
+
   output->set_value(val,idx);
-  cnt++; if (cnt==400) {algo->update_progress((double)idx/m); cnt=0;}
-  
+  cnt++; if (cnt==400) {algo->update_progress((double)idx/m); cnt=0;}  
  }
 
   return true;
@@ -92,7 +94,6 @@ ApplyMappingMatrixT(const ApplyMappingMatrixAlgo* algo,
 /// Actual Algorithm class
 ApplyMappingMatrixAlgo::ApplyMappingMatrixAlgo() 
 {
-
 }
 
 FieldHandle ApplyMappingMatrixAlgo::run(FieldHandle& isrc, FieldHandle& idst, MatrixHandle& mapping) const
@@ -100,21 +101,20 @@ FieldHandle ApplyMappingMatrixAlgo::run(FieldHandle& isrc, FieldHandle& idst, Ma
   FieldHandle output;
  
   if (!isrc)
+  /// safety check
   {
     THROW_ALGORITHM_INPUT_ERROR("No input source field");
-    return FieldHandle();
   }
 
   if (!isrc)
+  /// safety check
   {
     THROW_ALGORITHM_INPUT_ERROR("No input destination field");
-    return FieldHandle();
   }
   
   if (!isrc)
   {
     THROW_ALGORITHM_INPUT_ERROR("No input mapping field");
-    return FieldHandle();
   }
   
   auto matrix = matrix_cast::as_sparse(mapping); 
@@ -122,13 +122,13 @@ FieldHandle ApplyMappingMatrixAlgo::run(FieldHandle& isrc, FieldHandle& idst, Ma
   if (!matrix)
   {
     THROW_ALGORITHM_INPUT_ERROR("Mapping matrix needs to be sparse");
-    return FieldHandle();
   }
   
   VField* ifsrc =  isrc->vfield();
   VField* ifdst =  idst->vfield();
   VMesh*  imdst =  idst->vmesh();
 
+  /// Get information about field types
   FieldInformation fi(isrc);
   FieldInformation fo(idst);
 
@@ -143,7 +143,7 @@ FieldHandle ApplyMappingMatrixAlgo::run(FieldHandle& isrc, FieldHandle& idst, Ma
 
   if (dst_num_values == m)
   {
-    // do nothing
+    /// do nothing
   }
   if (m == dst_num_nodes)
   {
@@ -156,7 +156,6 @@ FieldHandle ApplyMappingMatrixAlgo::run(FieldHandle& isrc, FieldHandle& idst, Ma
   else
   {
     THROW_ALGORITHM_INPUT_ERROR("The number of columns in the matrix does not match number of nodes or elements in the destination field");
-    return FieldHandle();
   }
   
   if (src_num_values != n)
@@ -164,7 +163,6 @@ FieldHandle ApplyMappingMatrixAlgo::run(FieldHandle& isrc, FieldHandle& idst, Ma
     std::cerr << "n="<<n<<"\n";
     std::cerr << "num_values="<<src_num_values<<"\n";
     THROW_ALGORITHM_INPUT_ERROR("The number of columns in the matrix does not match number of values in the source field");
-    return FieldHandle();
   }
 
   /// Create output field
@@ -176,16 +174,15 @@ FieldHandle ApplyMappingMatrixAlgo::run(FieldHandle& isrc, FieldHandle& idst, Ma
   if (!output)
   {
     THROW_ALGORITHM_INPUT_ERROR("Could not create output field");
-    return FieldHandle();
   } 
   
-  //! Simple table to deal with the various data type formats
-  //! Note that not every data type is handled, all char, shorts etc,
-  //! are automatically handled by the int, and unsigned int case, by
-  //! casting the data on input (these should be the less frequently
-  //! used datatypes and hence have no specific algorithm in place).
-  //! Similarly floats are casted to doubles.
-       
+  /// Simple table to deal with the various data type formats
+  /// Note that not every data type is handled, all char, shorts etc,
+  /// are automatically handled by the int, and unsigned int case, by
+  /// casting the data on input (these should be the less frequently
+  /// used datatypes and hence have no specific algorithm in place).
+  /// Similarly floats are casted to doubles.
+
   if (isrc->vfield()->is_char()) 
     if (ApplyMappingMatrixT<char>(this,ifsrc,ofield,matrix))
        return output;
@@ -234,18 +231,16 @@ AlgorithmOutputName ApplyMappingMatrixAlgo::Output("Output");
 
 AlgorithmOutput ApplyMappingMatrixAlgo::run_generic(const AlgorithmInput & input) const
 {
- AlgorithmOutput output;
+  AlgorithmOutput output;
  
   auto src = input.get<Field>(Source);
   auto dest = input.get<Field>(Destination);
   auto mapp = input.get<Matrix>(Mapping);
- 
-  FieldHandle output_field;
-  output_field = run(src,dest,mapp);
   
+  FieldHandle output_field;
+  output_field = run(src,dest,mapp);  
   output[Output] = output_field;
-
+  
  return output;
 }
-
 

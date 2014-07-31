@@ -27,7 +27,7 @@
 */
 
 #include <Interface/Modules/Math/SelectSubMatrixDialog.h>
-#include <Dataflow/Network/ModuleStateInterface.h>  //TODO: extract into intermediate
+#include <Dataflow/Network/ModuleStateInterface.h>  ///TODO: extract into intermediate
 #include <Core/Algorithms/Base/AlgorithmVariableNames.h>
 #include <Core/Algorithms/Math/SelectSubMatrix.h>
 
@@ -56,22 +56,22 @@ void SelectSubMatrixDialog::push()
 {
   if (!pulling_)
   {
-   state_->setValue(SelectSubMatrixAlgorithm::rowCheckBox, rowCheckBox_->isChecked());
-   state_->setValue(SelectSubMatrixAlgorithm::columnCheckBox, columnCheckBox_->isChecked());
-   state_->setValue(SelectSubMatrixAlgorithm::rowStartSpinBox, rowStartSpinBox_->value());
-   state_->setValue(SelectSubMatrixAlgorithm::columnStartSpinBox, columnStartSpinBox_->value());
-   state_->setValue(SelectSubMatrixAlgorithm::columnEndSpinBox, columnEndSpinBox_->value());
-   state_->setValue(SelectSubMatrixAlgorithm::rowEndSpinBox, rowEndSpinBox_->value());
+   state_->setValue(SelectSubMatrixAlgorithm::rowCheckBox(), rowCheckBox_->isChecked());
+   state_->setValue(SelectSubMatrixAlgorithm::columnCheckBox(), columnCheckBox_->isChecked());
+   state_->setValue(SelectSubMatrixAlgorithm::rowStartSpinBox(), rowStartSpinBox_->value());
+   state_->setValue(SelectSubMatrixAlgorithm::columnStartSpinBox(), columnStartSpinBox_->value());
+   state_->setValue(SelectSubMatrixAlgorithm::columnEndSpinBox(), columnEndSpinBox_->value());
+   state_->setValue(SelectSubMatrixAlgorithm::rowEndSpinBox(), rowEndSpinBox_->value());
   }
 }
 
 void SelectSubMatrixDialog::pull()
 {
   Pulling p(this);
-  rowCheckBox_->setChecked(state_->getValue(SelectSubMatrixAlgorithm::rowCheckBox).getBool()); 
-  columnCheckBox_->setChecked(state_->getValue(SelectSubMatrixAlgorithm::columnCheckBox).getBool()); 
+  rowCheckBox_->setChecked(state_->getValue(SelectSubMatrixAlgorithm::rowCheckBox()).getBool()); 
+  columnCheckBox_->setChecked(state_->getValue(SelectSubMatrixAlgorithm::columnCheckBox()).getBool()); 
   
-  int newValue = state_->getValue(SelectSubMatrixAlgorithm::rowStartSpinBox).getInt();
+  int newValue = state_->getValue(SelectSubMatrixAlgorithm::rowStartSpinBox()).getInt();
   if (newValue != rowStartSpinBox_->value())
     rowStartSpinBox_->setValue(newValue);
 }

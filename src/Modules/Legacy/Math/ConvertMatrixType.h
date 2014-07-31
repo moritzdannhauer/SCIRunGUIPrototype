@@ -3,10 +3,10 @@
 
    The MIT License
 
-   Copyright (c) 2009 Scientific Computing and Imaging Institute,
+   Copyright (c) 2012 Scientific Computing and Imaging Institute,
    University of Utah.
 
-   
+   License for the specific language governing rights and limitations under
    Permission is hereby granted, free of charge, to any person obtaining a
    copy of this software and associated documentation files (the "Software"),
    to deal in the Software without restriction, including without limitation
@@ -26,42 +26,28 @@
    DEALINGS IN THE SOFTWARE.
 */
 
+#ifndef MODULES_MATH_CONVERTMATRIXTYPE_H
+#define MODULES_MATH_CONVERTMATRIXTYPE_H
 
-#ifndef CORE_ALGORITHMS_FIELDS_FIELDDATA_SETFIELDDATA_H
-#define CORE_ALGORITHMS_FIELDS_FIELDDATA_SETFIELDDATA_H 1
+#include <Dataflow/Network/Module.h>
+#include <Modules/Legacy/Math/share.h>
 
-// Datatypes that the algorithm uses
-#include <Core/Datatypes/Mesh.h>
-#include <Core/Datatypes/Field.h>
-#include <Core/Datatypes/Matrix.h>
-#include <Core/Datatypes/NrrdData.h>
+namespace SCIRun {
+namespace Modules {
+namespace Math {
 
-// Base class for algorithm
-#include <Core/Algorithms/Util/AlgoBase.h>
-
-// for Windows support
-#include <Core/Algorithms/Fields/share.h>
-
-namespace SCIRunAlgo {
-
-using namespace SCIRun;
-
-class SCISHARE SetFieldDataAlgo : public AlgoBase
-{
+  class SCISHARE ConvertMatrixTypeModule : public Dataflow::Networks::Module,
+    public Has1InputPort<MatrixPortTag>,
+    public Has1OutputPort<MatrixPortTag>
+  {
   public:
-    /// Set defaults
-    SetFieldDataAlgo()
-    {
-      /// keep scalar type defines whether we convert to double or not
-      add_option("scalardatatype","double","char|unsigned char|short|unsigned short|int|unsigned int");
-      add_index("column_index",-1);
-    }
-  
-    bool run(FieldHandle input, MatrixHandle data, FieldHandle& output);
-    bool run(FieldHandle input, NrrdDataHandle data, FieldHandle& output);
-};
+    ConvertMatrixTypeModule();
+    virtual void execute();
+    virtual void setStateDefaults();
 
-} // end namespace SCIRunAlgo
+     INPUT_PORT(0, InputMatrix, Matrix);
+    OUTPUT_PORT(0, ResultMatrix, Matrix);
+  };
+}}}
 
 #endif
-
