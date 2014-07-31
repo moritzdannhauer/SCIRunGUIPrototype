@@ -26,8 +26,6 @@
  *  DEALINGS IN THE SOFTWARE.
  */  
 
-/// @todo Documentation Modules/Legacy/String CreateString.cc,
-
 #include <Core/Datatypes/String.h>
 #include <Dataflow/Network/Ports/StringPort.h>
 #include <Dataflow/Network/Module.h>
@@ -35,6 +33,10 @@
 namespace SCIRun {
 
 using namespace SCIRun;
+
+/// @class CreateString
+/// @brief This module can be used to create a string. 
+/// @image html CreateString.png "Create String"
 
 class CreateString : public Module {
 public:

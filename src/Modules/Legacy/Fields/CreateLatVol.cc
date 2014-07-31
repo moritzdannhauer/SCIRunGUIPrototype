@@ -26,11 +26,9 @@
    DEALINGS IN THE SOFTWARE.
 */
 
-
-
 ///
 ///@file  CreateLatVol.cc
-///@brief Make an ImageField that fits the source field.
+///@brief Make an LatVolField that fits the source field.
 ///
 ///@author
 ///   Michael Callahan
@@ -38,6 +36,8 @@
 ///   University of Utah
 ///@date  March 2001
 ///
+/// @class CreateLatVol
+/// @image html CreateLatVol.png
 
 #include <Modules/Legacy/Fields/CreateLatVol.h>
 #include <Core/GeometryPrimitives/Point.h>

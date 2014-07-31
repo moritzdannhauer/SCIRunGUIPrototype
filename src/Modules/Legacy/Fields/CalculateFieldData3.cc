@@ -25,7 +25,6 @@
    FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
    DEALINGS IN THE SOFTWARE.
 */
-/// @todo Documentation Modules/Legacy/Fields/CalculateFieldData3.cc
 
 // Include all code for the dynamic engine
 #include <Core/Datatypes/String.h>
@@ -40,6 +39,11 @@
 #include <Dataflow/Network/Ports/StringPort.h>
 
 namespace SCIRun {
+
+/// @class CalculateFieldData3
+/// @brief Calculate new data for the field given a function that uses field 
+/// data, node location and element properties as input, with a second and 
+/// third input port for two additional fields. 
 
 class CalculateFieldData3 : public Module 
 {
@@ -146,7 +150,7 @@ void CalculateFieldData3::execute()
     if(!(engine.add_input_fielddata("DATA",field))) return;
     if(!(engine.add_input_fielddata("DATA1",field))) return;
 
-    ///-----------------------
+    //-----------------------
     // Backwards compatibility with version 3.0.2
     if(!(engine.add_input_fielddata("v0",field))) return;
     if(!(engine.add_input_fielddata("v",field))) return;
@@ -159,10 +163,10 @@ void CalculateFieldData3::execute()
     if(!(engine.add_input_fielddata_coordinates("X","Y","Z",field))) return;
     if(!(engine.add_input_fielddata_coordinates("X1","Y1","Z1",field))) return;
 
-    ///-----------------------
+    //-----------------------
     // Backwards compatibility with version 3.0.2
     if(!(engine.add_input_fielddata_coordinates("x","y","z",field))) return;
-    ///-----------------------
+    //-----------------------
 
     // Create the ELEMENT object describing element properties
     if(!(engine.add_input_fielddata_element("ELEMENT",field))) return;
@@ -171,11 +175,11 @@ void CalculateFieldData3::execute()
     // Caching method
     if(!(engine.add_input_matrix("COUNT",count_))) return;
     if(!(engine.add_input_fielddata("RESULT",cache_))) return;
-    ///-----------------------
+    //-----------------------
     // Backwards compatibility with intermediate version between 3.0.2 and 4.0
     if(!(engine.add_input_matrix("count",count_))) return;
     if(!(engine.add_input_fielddata("result",cache_))) return;    
-    ///-----------------------
+    //-----------------------
 
     if (field2.get_rep())
     {
@@ -234,11 +238,11 @@ void CalculateFieldData3::execute()
     }
     else
     {
-      ///-----------------------
+      //-----------------------
       // Backwards compatibility with version 3.0.2
       if(!(engine.add_output_fielddata("result",field,basis_order,format))) return;
       has_RESULT = false;
-      ///-----------------------
+      //-----------------------
     }
 
     // Add an object for getting the index and size of the array.
@@ -255,7 +259,7 @@ void CalculateFieldData3::execute()
 
     if (!(engine.run()))
     {
-      ///-----------------------
+      //-----------------------
       // Backwards compatibility with version 3.0.2
       if (old_version_)
       {
@@ -264,7 +268,7 @@ void CalculateFieldData3::execute()
         error("Please review documentation to explore available functionality and grammar of this module.");
         error("We are sorry for this inconvenience, but we do not longer support dynamically compiling code in SCIRun.");
       }
-      ///-----------------------
+      //-----------------------
       
       return;
     }
@@ -277,10 +281,10 @@ void CalculateFieldData3::execute()
     }
     else
     {
-      ///-----------------------
+      //-----------------------
       // Backwards compatibility with version 3.0.2
       engine.get_field("result",ofield);
-      ///-----------------------
+      //-----------------------
     }
 
     // send new output if there is any: 
@@ -342,7 +346,7 @@ CalculateFieldData3::post_read()
   const std::string modName = get_ctx()->getfullname() + "-";
   std::string val;
   
-  ///-----------------------
+  //-----------------------
   // Backwards compatibility with intermediate version
 
   if( TCLInterface::get(modName+"outputdatatype", val, get_ctx()) )
@@ -353,7 +357,7 @@ CalculateFieldData3::post_read()
       // Set the current values for the new names
     TCLInterface::set(modName+"format", val, get_ctx());
   }
-  ///-----------------------
+  //-----------------------
 
 }
 
