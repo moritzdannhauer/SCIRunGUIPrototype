@@ -32,47 +32,62 @@
 #include <Core/Datatypes/Legacy/Field/Field.h>
 #include <Core/Datatypes/Legacy/Field/VField.h>
 #include <Core/Datatypes/Legacy/Field/VMesh.h>
+#include <Core/Datatypes/DenseMatrix.h>
+#include <Core/Datatypes/Matrix.h>
+#include <Core/Datatypes/String.h>
 //////////////////////////////////////////////////////////////////////////
 /// @todo MORITZ
 //////////////////////////////////////////////////////////////////////////
 #include <iostream>
-
+using namespace SCIRun::Core::Datatypes;
 using namespace SCIRun::Core::Algorithms;
 using namespace SCIRun::Core::Algorithms::BrainStimulator;
 using namespace SCIRun::Core::Geometry;
 using namespace SCIRun;
     
-const AlgorithmInputName GenerateROIStatisticsAlgorithm::ELECTRODE_COIL_POSITIONS_AND_NORMAL("ELECTRODE_COIL_POSITIONS_AND_NORMAL");
-const AlgorithmInputName GenerateROIStatisticsAlgorithm::ELECTRODE_TRIANGULATION("ELECTRODE_TRIANGULATION");
-const AlgorithmInputName GenerateROIStatisticsAlgorithm::ELECTRODE_TRIANGULATION2("ELECTRODE_TRIANGULATION2");
-const AlgorithmInputName GenerateROIStatisticsAlgorithm::COIL("COIL");
-const AlgorithmInputName GenerateROIStatisticsAlgorithm::COIL2("COIL2");
-const AlgorithmOutputName GenerateROIStatisticsAlgorithm::ELECTRODES_FIELD("ELECTRODES_FIELD");
-const AlgorithmOutputName GenerateROIStatisticsAlgorithm::COILS_FIELD("COILS_FIELD");
+const AlgorithmInputName GenerateROIStatisticsAlgorithm::MESH_DATA_ON_ELEMENTS("MESH_DATA_ON_ELEMENTS");
+const AlgorithmInputName GenerateROIStatisticsAlgorithm::PHYSICAL_UNIT("PHYSICAL_UNIT");
+const AlgorithmInputName GenerateROIStatisticsAlgorithm::ATLAS_MESH("ATLAS_MESH");
+const AlgorithmInputName GenerateROIStatisticsAlgorithm::ATLAS_MESH_LABELS("ATLAS_MESH_LABELS");
+const AlgorithmInputName GenerateROIStatisticsAlgorithm::COORDINATE_SPACE("COORDINATE_SPACE");
+const AlgorithmOutputName GenerateROIStatisticsAlgorithm::STATISTICAL_RESULTS("STATISTICAL_RESULTS");
 
+
+DenseMatrixHandle GenerateROIStatisticsAlgorithm::run(FieldHandle mesh, FieldHandle atlas_mesh) const
+{
+ DenseMatrixHandle output;
+ 
+ return output;
+}
 
 AlgorithmOutput GenerateROIStatisticsAlgorithm::run_generic(const AlgorithmInput& input) const
 {
-  auto pos_orient = input.get<Field>(ELECTRODE_COIL_POSITIONS_AND_NORMAL);
-  auto tri = input.get<Field>(ELECTRODE_TRIANGULATION);
+  auto mesh = input.get<Field>(MESH_DATA_ON_ELEMENTS);
+  auto physical_unit = input.get<Datatypes::String>(PHYSICAL_UNIT);
+  auto atlas_mesh = input.get<Field>(ATLAS_MESH);
+  auto atlas_mesh_labels = input.get<Datatypes::String>(ATLAS_MESH_LABELS);
+  auto coordinate = input.get<Field>(COORDINATE_SPACE);
+  
+  DenseMatrixHandle statistics = run(mesh, atlas_mesh);
+  
+ // getOptionalInput
+ /* auto pos_orient = input.get<Field>(MESH_DATA_ON_ELEMENTS);
+  auto tri = input.get<Field>(PHYSICAL_UNIT);
   auto tri2 = input.get<Field>(ELECTRODE_TRIANGULATION2);
   auto coil = input.get<Field>(COIL);
-  auto coil2 = input.get<Field>(COIL2);
-  ENSURE_ALGORITHM_INPUT_NOT_NULL(pos_orient, "ELECTRODE_COIL_POSITIONS_AND_NORMAL input field");
-  ENSURE_ALGORITHM_INPUT_NOT_NULL(tri, "ELECTRODE_TRIANGULATION input field");
-  ENSURE_ALGORITHM_INPUT_NOT_NULL(tri2, "ELECTRODE_TRIANGULATION2 input field");
-  ENSURE_ALGORITHM_INPUT_NOT_NULL(coil, "COIL input field");
-  ENSURE_ALGORITHM_INPUT_NOT_NULL(coil2, "COIL2 input field");
+  auto COORDINATE_SPACE = input.get<Field>(COORDINATE_SPACE);*/
+ 
   //old-style run call, just put algorithm code here
   //auto outputs = run(boost::make_tuple(lhs, rhs), Option(get(Variables::AppendMatrixOption).getInt()));
   // CODE HERE
-  FieldHandle out1,out2;
+  FieldHandle out1;
+  Datatypes::String out2,out3;
 
   //Algorithm starts here:
   //VField* vfield = elc_coil_pos_and_normal->vfield();
-   VMesh*  vmesh  = pos_orient->vmesh();
+  // VMesh*  vmesh  = pos_orient->vmesh();
  
-   std::cout << "a: " << vmesh->num_nodes() << std::endl;
+   //std::cout << "a: " << vmesh->num_nodes() << std::endl;
    //for (int i=0;i<vmesh->num_nodes();;i++)
    //{
    
@@ -82,7 +97,7 @@ AlgorithmOutput GenerateROIStatisticsAlgorithm::run_generic(const AlgorithmInput
 
 
   AlgorithmOutput output;
-  output[ELECTRODES_FIELD] = out1;
-  output[COILS_FIELD] = out2;
+  output[STATISTICAL_RESULTS] = statistics;
+  
   return output;
 }

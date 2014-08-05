@@ -39,8 +39,8 @@ namespace SCIRun {
     namespace BrainStimulator {
 
 class SCISHARE GenerateROIStatisticsModule : public SCIRun::Dataflow::Networks::Module,
-  public Has5InputPorts<FieldPortTag, FieldPortTag, FieldPortTag, FieldPortTag, FieldPortTag>,
-  public Has2OutputPorts<FieldPortTag, FieldPortTag>
+  public Has5InputPorts<FieldPortTag, StringPortTag, FieldPortTag, StringPortTag, FieldPortTag>,
+  public Has1OutputPort<MatrixPortTag>
 {
   public:
     GenerateROIStatisticsModule();
@@ -48,14 +48,14 @@ class SCISHARE GenerateROIStatisticsModule : public SCIRun::Dataflow::Networks::
     virtual void execute();
     virtual void setStateDefaults();
 
-    INPUT_PORT(0, ELECTRODE_COIL_POSITIONS_AND_NORMAL, LegacyField);
-    INPUT_PORT(1, ELECTRODE_TRIANGULATION, LegacyField);
-    INPUT_PORT(2, ELECTRODE_TRIANGULATION2, LegacyField);
-    INPUT_PORT(3, COIL, LegacyField);
-    INPUT_PORT(4, COIL2, LegacyField);
+    INPUT_PORT(0, MESH_DATA_ON_ELEMENTS, LegacyField);
+    INPUT_PORT(1, PHYSICAL_UNIT, String);
+    INPUT_PORT(2, ATLAS_MESH, LegacyField);
+    INPUT_PORT(3, ATLAS_MESH_LABELS, String);
+    INPUT_PORT(4, COORDINATE_SPACE, LegacyField);
     
-    OUTPUT_PORT(0, ELECTRODES_FIELD, LegacyField);
-    OUTPUT_PORT(1, COILS_FIELD, LegacyField);
+    OUTPUT_PORT(0, STATISTICAL_RESULTS, Matrix);
+
 };
 
 }}}

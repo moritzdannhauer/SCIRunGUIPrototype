@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>669</width>
-    <height>302</height>
+    <width>682</width>
+    <height>384</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,8 +18,8 @@
     <rect>
      <x>10</x>
      <y>10</y>
-     <width>650</width>
-     <height>281</height>
+     <width>661</width>
+     <height>361</height>
     </rect>
    </property>
    <property name="currentIndex">
@@ -34,91 +34,30 @@
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>641</width>
-       <height>121</height>
+       <width>651</width>
+       <height>231</height>
       </rect>
      </property>
      <property name="title">
-      <string>Current density statistics for ROIs</string>
+      <string>Statistics for ROIs</string>
      </property>
      <widget class="QTableView" name="tableView">
       <property name="geometry">
        <rect>
         <x>0</x>
         <y>20</y>
-        <width>641</width>
-        <height>91</height>
+        <width>651</width>
+        <height>211</height>
        </rect>
       </property>
      </widget>
     </widget>
-    <widget class="QWidget" name="verticalLayoutWidget_3">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>120</y>
-       <width>161</width>
-       <height>101</height>
-      </rect>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout_3">
-      <item>
-       <widget class="QGroupBox" name="groupBox_3">
-        <property name="title">
-         <string>ROIs</string>
-        </property>
-        <widget class="QRadioButton" name="radioButton_2">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>20</y>
-           <width>111</width>
-           <height>20</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Yale Atlas</string>
-         </property>
-         <property name="checked">
-          <bool>true</bool>
-         </property>
-        </widget>
-        <widget class="QRadioButton" name="radioButton">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>40</y>
-           <width>91</width>
-           <height>20</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Freesurfer</string>
-         </property>
-        </widget>
-        <widget class="QRadioButton" name="radioButton_3">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>60</y>
-           <width>141</width>
-           <height>20</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Talairach daemon</string>
-         </property>
-        </widget>
-       </widget>
-      </item>
-     </layout>
-    </widget>
     <widget class="QWidget" name="verticalLayoutWidget_4">
      <property name="geometry">
       <rect>
-       <x>170</x>
-       <y>120</y>
-       <width>471</width>
+       <x>0</x>
+       <y>230</y>
+       <width>651</width>
        <height>101</height>
       </rect>
      </property>
@@ -126,15 +65,15 @@
       <item>
        <widget class="QGroupBox" name="groupBox_5">
         <property name="title">
-         <string>Specify ROI</string>
+         <string>Specify ROI(s)</string>
         </property>
         <widget class="QTableWidget" name="tableWidget_4">
          <property name="geometry">
           <rect>
            <x>10</x>
            <y>20</y>
-           <width>341</width>
-           <height>71</height>
+           <width>421</width>
+           <height>81</height>
           </rect>
          </property>
          <row>
@@ -159,89 +98,23 @@
          </column>
          <column>
           <property name="text">
+           <string>Atlas Material #</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
            <string>Radius</string>
           </property>
          </column>
-        </widget>
-        <widget class="QRadioButton" name="radioButton_4">
-         <property name="geometry">
-          <rect>
-           <x>360</x>
-           <y>50</y>
-           <width>51</width>
-           <height>20</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Tal</string>
-         </property>
-        </widget>
-        <widget class="QRadioButton" name="radioButton_5">
-         <property name="geometry">
-          <rect>
-           <x>410</x>
-           <y>50</y>
-           <width>51</width>
-           <height>20</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>MNI</string>
-         </property>
-        </widget>
-        <widget class="QPushButton" name="pushButton_5">
-         <property name="geometry">
-          <rect>
-           <x>350</x>
-           <y>70</y>
-           <width>114</width>
-           <height>32</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Analyze</string>
-         </property>
-        </widget>
-        <widget class="QLabel" name="label">
-         <property name="geometry">
-          <rect>
-           <x>360</x>
-           <y>20</y>
-           <width>62</width>
-           <height>16</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string># Points:</string>
-         </property>
-        </widget>
-        <widget class="QSpinBox" name="spinBox">
-         <property name="geometry">
-          <rect>
-           <x>420</x>
-           <y>20</y>
-           <width>41</width>
-           <height>25</height>
-          </rect>
-         </property>
         </widget>
        </widget>
       </item>
      </layout>
     </widget>
-    <widget class="QPushButton" name="pushButton_6">
-     <property name="geometry">
-      <rect>
-       <x>260</x>
-       <y>220</y>
-       <width>141</width>
-       <height>32</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Show Histograms</string>
-     </property>
-    </widget>
+    <zorder>groupBox_4</zorder>
+    <zorder>verticalLayoutWidget_4</zorder>
+    <zorder>tableWidget_4</zorder>
+    <zorder>groupBox_5</zorder>
    </widget>
   </widget>
  </widget>

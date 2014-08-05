@@ -38,18 +38,18 @@
 //////////////////////////////////////////////////////////////////////////
 using namespace SCIRun::Modules::BrainStimulator;
 using namespace SCIRun::Core::Datatypes;
+using namespace SCIRun::Core::Algorithms;
 using namespace SCIRun::Core::Algorithms::BrainStimulator;
 using namespace SCIRun::Dataflow::Networks;
 
 GenerateROIStatisticsModule::GenerateROIStatisticsModule() : Module(ModuleLookupInfo("GenerateROIStatistics", "BrainStimulator", "SCIRun"))
 {
- INITIALIZE_PORT(ELECTRODE_COIL_POSITIONS_AND_NORMAL);
- INITIALIZE_PORT(ELECTRODE_TRIANGULATION);
- INITIALIZE_PORT(ELECTRODE_TRIANGULATION2);
- INITIALIZE_PORT(COIL);
- INITIALIZE_PORT(COIL2);
- INITIALIZE_PORT(ELECTRODES_FIELD);
- INITIALIZE_PORT(COILS_FIELD);
+ INITIALIZE_PORT(MESH_DATA_ON_ELEMENTS);
+ INITIALIZE_PORT(PHYSICAL_UNIT);
+ INITIALIZE_PORT(ATLAS_MESH);
+ INITIALIZE_PORT(ATLAS_MESH_LABELS);
+ INITIALIZE_PORT(COORDINATE_SPACE);
+ INITIALIZE_PORT(STATISTICAL_RESULTS);
 }
 
 void GenerateROIStatisticsModule::setStateDefaults()
@@ -59,19 +59,20 @@ void GenerateROIStatisticsModule::setStateDefaults()
 
 void GenerateROIStatisticsModule::execute()
 {
-  auto elc_coil_pos_and_normal = getRequiredInput(ELECTRODE_COIL_POSITIONS_AND_NORMAL);
-  auto elc_tri_mesh = getRequiredInput(ELECTRODE_TRIANGULATION);
+  auto mesh_data = getRequiredInput(MESH_DATA_ON_ELEMENTS);
+  auto physical_unit = getOptionalInput(PHYSICAL_UNIT);
+  auto atlas_mesh = getRequiredInput(ATLAS_MESH);
+  auto atlas_mesh_labels = getOptionalInput(ATLAS_MESH_LABELS);
+  auto coodinate_space = getOptionalInput(COORDINATE_SPACE);
    // UI input
   //auto param = get_state()->getValue(Variables::AppendMatrixOption).getInt();
 
   //algorithm parameter
   //algo_->set(Variables::AppendMatrixOption, param);
  
-  
   //algorithm input and run
-  auto output = algo().run_generic(make_input((ELECTRODE_COIL_POSITIONS_AND_NORMAL, elc_coil_pos_and_normal)(ELECTRODE_TRIANGULATION, elc_tri_mesh)));
+  auto output = algo().run_generic(make_input((MESH_DATA_ON_ELEMENTS, mesh_data)(PHYSICAL_UNIT, optionalAlgoInput(physical_unit))(ATLAS_MESH, atlas_mesh)(ATLAS_MESH_LABELS, optionalAlgoInput(atlas_mesh_labels))(COORDINATE_SPACE, optionalAlgoInput(coodinate_space))));
 
   //algorithm output
-  sendOutputFromAlgorithm(ELECTRODES_FIELD, output);
-  sendOutputFromAlgorithm(COILS_FIELD, output);
+  sendOutputFromAlgorithm(STATISTICAL_RESULTS, output);
 }

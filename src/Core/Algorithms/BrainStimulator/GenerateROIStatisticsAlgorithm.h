@@ -47,16 +47,16 @@ namespace BrainStimulator {
 
     AlgorithmOutput run_generic(const AlgorithmInput& input) const;
 
-    static const AlgorithmInputName ELECTRODE_COIL_POSITIONS_AND_NORMAL;
-    static const AlgorithmInputName ELECTRODE_TRIANGULATION;
-    static const AlgorithmInputName ELECTRODE_TRIANGULATION2;
-    static const AlgorithmInputName COIL;
-    static const AlgorithmInputName COIL2;
-    static const AlgorithmOutputName ELECTRODES_FIELD;
-    static const AlgorithmOutputName COILS_FIELD;
-
+    static const AlgorithmInputName MESH_DATA_ON_ELEMENTS;
+    static const AlgorithmInputName PHYSICAL_UNIT;
+    static const AlgorithmInputName ATLAS_MESH;
+    static const AlgorithmInputName ATLAS_MESH_LABELS;
+    static const AlgorithmInputName COORDINATE_SPACE;
+    static const AlgorithmOutputName STATISTICAL_RESULTS;
+    
   private:
-  
+    Datatypes::DenseMatrixHandle run(FieldHandle mesh, FieldHandle atlas_mesh) const;
+
     
   };
 
