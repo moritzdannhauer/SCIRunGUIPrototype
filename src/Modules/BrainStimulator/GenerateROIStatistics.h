@@ -39,7 +39,7 @@ namespace SCIRun {
     namespace BrainStimulator {
 
 class SCISHARE GenerateROIStatisticsModule : public SCIRun::Dataflow::Networks::Module,
-  public Has5InputPorts<FieldPortTag, StringPortTag, FieldPortTag, StringPortTag, FieldPortTag>,
+  public Has6InputPorts<FieldPortTag, StringPortTag, FieldPortTag, StringPortTag, FieldPortTag, StringPortTag>,
   public Has1OutputPort<MatrixPortTag>
 {
   public:
@@ -53,6 +53,7 @@ class SCISHARE GenerateROIStatisticsModule : public SCIRun::Dataflow::Networks::
     INPUT_PORT(2, ATLAS_MESH, LegacyField);
     INPUT_PORT(3, ATLAS_MESH_LABELS, String);
     INPUT_PORT(4, COORDINATE_SPACE, LegacyField);
+    INPUT_PORT(5, COORDINATE_SPACE_LABEL, String);
     
     OUTPUT_PORT(0, STATISTICAL_RESULTS, Matrix);
 

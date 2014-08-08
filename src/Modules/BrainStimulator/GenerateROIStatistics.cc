@@ -50,6 +50,7 @@ GenerateROIStatisticsModule::GenerateROIStatisticsModule() : Module(ModuleLookup
  INITIALIZE_PORT(ATLAS_MESH_LABELS);
  INITIALIZE_PORT(COORDINATE_SPACE);
  INITIALIZE_PORT(STATISTICAL_RESULTS);
+ INITIALIZE_PORT(COORDINATE_SPACE_LABEL);
 }
 
 void GenerateROIStatisticsModule::setStateDefaults()
@@ -63,7 +64,8 @@ void GenerateROIStatisticsModule::execute()
   auto physical_unit = getOptionalInput(PHYSICAL_UNIT);
   auto atlas_mesh = getRequiredInput(ATLAS_MESH);
   auto atlas_mesh_labels = getOptionalInput(ATLAS_MESH_LABELS);
-  auto coodinate_space = getOptionalInput(COORDINATE_SPACE);
+  auto coordinate_space = getOptionalInput(COORDINATE_SPACE);
+  auto coordinate_space_label = getOptionalInput(COORDINATE_SPACE);
    // UI input
   //auto param = get_state()->getValue(Variables::AppendMatrixOption).getInt();
 
@@ -71,7 +73,7 @@ void GenerateROIStatisticsModule::execute()
   //algo_->set(Variables::AppendMatrixOption, param);
  
   //algorithm input and run
-  auto output = algo().run_generic(make_input((MESH_DATA_ON_ELEMENTS, mesh_data)(PHYSICAL_UNIT, optionalAlgoInput(physical_unit))(ATLAS_MESH, atlas_mesh)(ATLAS_MESH_LABELS, optionalAlgoInput(atlas_mesh_labels))(COORDINATE_SPACE, optionalAlgoInput(coodinate_space))));
+  auto output = algo().run_generic(make_input((MESH_DATA_ON_ELEMENTS, mesh_data)(PHYSICAL_UNIT, optionalAlgoInput(physical_unit))(ATLAS_MESH, atlas_mesh)(ATLAS_MESH_LABELS, optionalAlgoInput(atlas_mesh_labels))(COORDINATE_SPACE, optionalAlgoInput(coordinate_space))(COORDINATE_SPACE_LABEL, optionalAlgoInput(coordinate_space_label))));
 
   //algorithm output
   sendOutputFromAlgorithm(STATISTICAL_RESULTS, output);

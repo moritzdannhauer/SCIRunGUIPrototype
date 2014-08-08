@@ -43,8 +43,6 @@ namespace BrainStimulator {
   class SCISHARE GenerateROIStatisticsAlgorithm : public AlgorithmBase
   {
   public:
-    //Outputs run(const Inputs& input, const Parameters& params = 0) const;
-
     AlgorithmOutput run_generic(const AlgorithmInput& input) const;
 
     static const AlgorithmInputName MESH_DATA_ON_ELEMENTS;
@@ -52,11 +50,11 @@ namespace BrainStimulator {
     static const AlgorithmInputName ATLAS_MESH;
     static const AlgorithmInputName ATLAS_MESH_LABELS;
     static const AlgorithmInputName COORDINATE_SPACE;
+    static const AlgorithmInputName COORDINATE_SPACE_LABEL;
     static const AlgorithmOutputName STATISTICAL_RESULTS;
     
   private:
     Datatypes::DenseMatrixHandle run(FieldHandle mesh, FieldHandle atlas_mesh) const;
-
     
   };
 
