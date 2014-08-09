@@ -55,7 +55,7 @@ namespace BrainStimulator {
     
   private:
     Datatypes::DenseMatrixHandle run(FieldHandle mesh, FieldHandle atlas_mesh) const;
-    
+    std::vector<String> ConvertInputAtlasStringIntoVector(const String atlas_labels) const;
   };
 
 }}}}

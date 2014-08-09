@@ -127,6 +127,11 @@ DenseMatrixHandle GenerateROIStatisticsAlgorithm::run(FieldHandle mesh, FieldHan
  return output;
 }
 
+std::vector<String> GenerateROIStatisticsAlgorithm::ConvertInputAtlasStringIntoVector(const String atlas_labels) const
+{
+
+}
+
 AlgorithmOutput GenerateROIStatisticsAlgorithm::run_generic(const AlgorithmInput& input) const
 {
   auto mesh = input.get<Field>(MESH_DATA_ON_ELEMENTS);
@@ -156,6 +161,22 @@ AlgorithmOutput GenerateROIStatisticsAlgorithm::run_generic(const AlgorithmInput
   if (!vfield1->is_scalar())
     THROW_ALGORITHM_INPUT_ERROR("First input field needs to have scalar data.");      
   
+  /*
+  
+  
+  std::string s = "scott>=tiger>=mushroom";
+std::string delimiter = ">=";
+
+size_t pos = 0;
+std::string token;
+while ((pos = s.find(delimiter)) != std::string::npos) {
+    token = s.substr(0, pos);
+    std::cout << token << std::endl;
+    s.erase(0, pos + delimiter.length());
+}
+  
+  
+  */
   
   FieldInformation fi2(atlas_mesh);
   
