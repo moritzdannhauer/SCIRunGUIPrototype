@@ -36,6 +36,7 @@
 #include <Core/Datatypes/DenseMatrix.h>
 #include <Core/Datatypes/Matrix.h>
 #include <Core/Datatypes/String.h>
+#include <boost/range/algorithm/count.hpp>
 //////////////////////////////////////////////////////////////////////////
 /// @todo MORITZ
 //////////////////////////////////////////////////////////////////////////
@@ -45,7 +46,7 @@ using namespace SCIRun::Core::Algorithms;
 using namespace SCIRun::Core::Algorithms::BrainStimulator;
 using namespace SCIRun::Core::Geometry;
 using namespace SCIRun;
-    
+
 const AlgorithmInputName GenerateROIStatisticsAlgorithm::MESH_DATA_ON_ELEMENTS("MESH_DATA_ON_ELEMENTS");
 const AlgorithmInputName GenerateROIStatisticsAlgorithm::PHYSICAL_UNIT("PHYSICAL_UNIT");
 const AlgorithmInputName GenerateROIStatisticsAlgorithm::ATLAS_MESH("ATLAS_MESH");
@@ -127,9 +128,27 @@ DenseMatrixHandle GenerateROIStatisticsAlgorithm::run(FieldHandle mesh, FieldHan
  return output;
 }
 
-std::vector<String> GenerateROIStatisticsAlgorithm::ConvertInputAtlasStringIntoVector(const String atlas_labels) const
+std::vector<std::string> GenerateROIStatisticsAlgorithm::ConvertInputAtlasStringIntoVector(const std::string atlas_labels) const
 {
+  std::string s = atlas_labels;
 
+  int cnt = boost::count(atlas_labels, ';')+1;  /// Place a ";" after each region name, e.g. ROI1;ROI2; 
+
+  std::vector<std::string> result;
+  result.reserve(cnt);
+  std::string delimiter = ";";
+
+  size_t pos = 0;
+  std::string token;   
+
+  while ((pos = s.find(delimiter)) != std::string::npos) 
+  {
+    token = s.substr(0, pos);
+    result.push_back(token);
+    s.erase(0, pos + delimiter.length());
+  }  
+    
+  return result;
 }
 
 AlgorithmOutput GenerateROIStatisticsAlgorithm::run_generic(const AlgorithmInput& input) const
@@ -137,7 +156,7 @@ AlgorithmOutput GenerateROIStatisticsAlgorithm::run_generic(const AlgorithmInput
   auto mesh = input.get<Field>(MESH_DATA_ON_ELEMENTS);
   auto physical_unit_ = input.get<Datatypes::String>(PHYSICAL_UNIT);
   auto atlas_mesh = input.get<Field>(ATLAS_MESH);
-  auto atlas_mesh_labels = input.get<Datatypes::String>(ATLAS_MESH_LABELS);
+  auto atlas_mesh_labels = (input.get<Datatypes::String>(ATLAS_MESH_LABELS))->value();
   auto coordinate = input.get<Field>(COORDINATE_SPACE);
   auto coordinate_label = input.get<Datatypes::String>(COORDINATE_SPACE_LABEL);
   
@@ -161,23 +180,6 @@ AlgorithmOutput GenerateROIStatisticsAlgorithm::run_generic(const AlgorithmInput
   if (!vfield1->is_scalar())
     THROW_ALGORITHM_INPUT_ERROR("First input field needs to have scalar data.");      
   
-  /*
-  
-  
-  std::string s = "scott>=tiger>=mushroom";
-std::string delimiter = ">=";
-
-size_t pos = 0;
-std::string token;
-while ((pos = s.find(delimiter)) != std::string::npos) {
-    token = s.substr(0, pos);
-    std::cout << token << std::endl;
-    s.erase(0, pos + delimiter.length());
-}
-  
-  
-  */
-  
   FieldInformation fi2(atlas_mesh);
   
   if (!fi2.is_constantdata())
@@ -197,7 +199,13 @@ while ((pos = s.find(delimiter)) != std::string::npos) {
   
   if(vfield2->vmesh()->num_elems() !=  vfield1->vmesh()->num_elems())
     THROW_ALGORITHM_INPUT_ERROR(" Number of mesh elements of first input and third input does not match.");  
-      
+  
+  std::vector<std::string> atlas_mesh_labels_vector;
+  if (!atlas_mesh_labels.empty())
+  {
+   atlas_mesh_labels_vector = ConvertInputAtlasStringIntoVector(atlas_mesh_labels); 
+  }
+   
   DenseMatrixHandle statistics = run(mesh, atlas_mesh);
 
   AlgorithmOutput output;
