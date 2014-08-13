@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>682</width>
-    <height>384</height>
+    <width>572</width>
+    <height>421</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,8 +18,8 @@
     <rect>
      <x>10</x>
      <y>10</y>
-     <width>661</width>
-     <height>361</height>
+     <width>551</width>
+     <height>401</height>
     </rect>
    </property>
    <property name="currentIndex">
@@ -34,22 +34,52 @@
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>651</width>
+       <width>531</width>
        <height>231</height>
       </rect>
      </property>
      <property name="title">
       <string>Statistics for ROIs</string>
      </property>
-     <widget class="QTableView" name="tableView">
+     <widget class="QTableWidget" name="StatisticsOutput_tableWidget">
       <property name="geometry">
        <rect>
         <x>0</x>
         <y>20</y>
-        <width>651</width>
+        <width>521</width>
         <height>211</height>
        </rect>
       </property>
+      <row>
+       <property name="text">
+        <string>1</string>
+       </property>
+      </row>
+      <column>
+       <property name="text">
+        <string>ROI</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>avr</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>std</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>min</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>max</string>
+       </property>
+      </column>
      </widget>
     </widget>
     <widget class="QWidget" name="verticalLayoutWidget_4">
@@ -57,8 +87,8 @@
       <rect>
        <x>0</x>
        <y>230</y>
-       <width>651</width>
-       <height>101</height>
+       <width>531</width>
+       <height>131</height>
       </rect>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -67,13 +97,13 @@
         <property name="title">
          <string>Specify ROI(s)</string>
         </property>
-        <widget class="QTableWidget" name="tableWidget_4">
+        <widget class="QTableWidget" name="SpecifyROI_tabWidget">
          <property name="geometry">
           <rect>
-           <x>10</x>
+           <x>0</x>
            <y>20</y>
-           <width>421</width>
-           <height>81</height>
+           <width>521</width>
+           <height>101</height>
           </rect>
          </property>
          <row>
@@ -111,10 +141,6 @@
       </item>
      </layout>
     </widget>
-    <zorder>groupBox_4</zorder>
-    <zorder>verticalLayoutWidget_4</zorder>
-    <zorder>tableWidget_4</zorder>
-    <zorder>groupBox_5</zorder>
    </widget>
   </widget>
  </widget>

@@ -44,7 +44,7 @@ namespace BrainStimulator {
   {
   public:
     AlgorithmOutput run_generic(const AlgorithmInput& input) const;
-
+    GenerateROIStatisticsAlgorithm();
     static const AlgorithmInputName MESH_DATA_ON_ELEMENTS;
     static const AlgorithmInputName PHYSICAL_UNIT;
     static const AlgorithmInputName ATLAS_MESH;

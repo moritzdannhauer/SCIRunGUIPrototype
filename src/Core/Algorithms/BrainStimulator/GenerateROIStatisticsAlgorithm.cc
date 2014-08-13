@@ -55,6 +55,10 @@ const AlgorithmInputName GenerateROIStatisticsAlgorithm::COORDINATE_SPACE("COORD
 const AlgorithmInputName GenerateROIStatisticsAlgorithm::COORDINATE_SPACE_LABEL("COORDINATE_SPACE_LABEL");
 const AlgorithmOutputName GenerateROIStatisticsAlgorithm::STATISTICAL_RESULTS("STATISTICAL_RESULTS");
 
+GenerateROIStatisticsAlgorithm::GenerateROIStatisticsAlgorithm()
+{
+ 
+}
 
 DenseMatrixHandle GenerateROIStatisticsAlgorithm::run(FieldHandle mesh, FieldHandle atlas_mesh) const
 {
