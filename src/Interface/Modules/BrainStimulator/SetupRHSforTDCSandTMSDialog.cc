@@ -46,10 +46,10 @@ SetupRHSforTDCSandTMSDialog::SetupRHSforTDCSandTMSDialog(const std::string& name
 
   //electrode_tableWidget = new QTableWidget(this);
   electrode_tableWidget->setRowCount(128);
-  electrode_tableWidget->setColumnCount(2);
+  electrode_tableWidget->setColumnCount(3);
 
   QStringList tableHeader;
-  tableHeader<<"Electrode"<<"Current intensity [mA]";
+  tableHeader<<"Electrode"<<"Current intensity [mA]"<<"Impedance [Ohm*m^2]";
   electrode_tableWidget->setHorizontalHeaderLabels(tableHeader);
 
   for (int i=0; i<128; i++)

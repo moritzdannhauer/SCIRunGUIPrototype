@@ -47,13 +47,22 @@ namespace BrainStimulator {
     SetupRHSforTDCSandTMSAlgorithm();
     AlgorithmOutput run_generic(const AlgorithmInput& input) const;
 
-    SCIRun::Core::Datatypes::DenseMatrixHandle run(FieldHandle fh, const std::vector<Variable>& elcs, int num_of_elc) const;
-    
-    static AlgorithmInputName ELECTRODE_COIL_POSITIONS_AND_NORMAL;
-    static AlgorithmInputName ELECTRODE_COUNT;
+    SCIRun::Core::Datatypes::DenseMatrixHandle run(FieldHandle mesh, const std::vector<Variable>& elcs, int num_of_elc, FieldHandle scalp_tri_surf, FieldHandle elc_tri_surf, SCIRun::Core::Datatypes::DenseMatrixHandle elc_sponge_location) const;
+
+    static AlgorithmInputName MESH;
+    static AlgorithmInputName ELECTRODE_COUNT;   
+    static AlgorithmInputName SCALP_TRI_SURF_MESH;
+    static AlgorithmInputName ELECTRODE_TRI_SURF_MESH;
+    static AlgorithmInputName ELECTRODE_SPONGE_LOCATION_AVR;    
+    static AlgorithmOutputName ELECTRODE_ELEMENT;
+    static AlgorithmOutputName ELECTRODE_ELEMENT_TYPE;
+    static AlgorithmOutputName ELECTRODE_ELEMENT_DEFINITION;
+    static AlgorithmOutputName ELECTRODE_CONTACT_IMPEDANCE;
     static AlgorithmOutputName RHS;
     
     static Core::Algorithms::AlgorithmParameterName ElecrodeParameterName(int i);
+    SCIRun::Core::Datatypes::DenseMatrixHandle create_rhs(FieldHandle mesh, const std::vector<Variable>& elcs, int num_of_elc) const;
+    SCIRun::Core::Datatypes::DenseMatrixHandle create_lhs(FieldHandle mesh, FieldHandle elc_tri_surf, SCIRun::Core::Datatypes::DenseMatrixHandle elc_sponge_location) const;
   };
 
 }}}}

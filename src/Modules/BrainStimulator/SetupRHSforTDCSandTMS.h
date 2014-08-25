@@ -37,18 +37,26 @@ namespace SCIRun {
     namespace BrainStimulator {
 
 class SCISHARE SetupRHSforTDCSandTMSModule : public Dataflow::Networks::Module,
-  public Has2InputPorts<FieldPortTag, MatrixPortTag>,
-  public Has1OutputPort<MatrixPortTag>
+  public Has5InputPorts<FieldPortTag, MatrixPortTag, FieldPortTag, FieldPortTag, MatrixPortTag>,
+  public Has5OutputPorts<MatrixPortTag, MatrixPortTag, MatrixPortTag, MatrixPortTag, MatrixPortTag>
 {
   public:
     SetupRHSforTDCSandTMSModule();
     virtual void execute();
     virtual void setStateDefaults();
 
-    INPUT_PORT(0, ELECTRODE_COIL_POSITIONS_AND_NORMAL, LegacyField);
+    INPUT_PORT(0, MESH, LegacyField);
     INPUT_PORT(1, ELECTRODE_COUNT, Matrix);
+    INPUT_PORT(2, SCALP_TRI_SURF_MESH, LegacyField);
+    INPUT_PORT(3, ELECTRODE_TRI_SURF_MESH, LegacyField);
+    INPUT_PORT(4, ELECTRODE_SPONGE_LOCATION_AVR, Matrix);
 
-    OUTPUT_PORT(0, RHS, Matrix);
+    OUTPUT_PORT(0, ELECTRODE_ELEMENT, Matrix);
+    OUTPUT_PORT(1, ELECTRODE_ELEMENT_TYPE, Matrix);
+    OUTPUT_PORT(2, ELECTRODE_ELEMENT_DEFINITION, Matrix); 
+    OUTPUT_PORT(3, ELECTRODE_CONTACT_IMPEDANCE, Matrix);
+    OUTPUT_PORT(4, RHS, Matrix);
+    
 };
 
 }}}

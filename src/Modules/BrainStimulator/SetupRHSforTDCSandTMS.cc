@@ -41,8 +41,15 @@ using namespace SCIRun::Dataflow::Networks;
 
 SetupRHSforTDCSandTMSModule::SetupRHSforTDCSandTMSModule() : Module(ModuleLookupInfo("SetupRHSforTDCSandTMS", "BrainStimulator", "SCIRun"))
 {
- INITIALIZE_PORT(ELECTRODE_COIL_POSITIONS_AND_NORMAL);
+ INITIALIZE_PORT(MESH);
  INITIALIZE_PORT(ELECTRODE_COUNT);
+ INITIALIZE_PORT(SCALP_TRI_SURF_MESH);
+ INITIALIZE_PORT(ELECTRODE_TRI_SURF_MESH);
+ INITIALIZE_PORT(ELECTRODE_SPONGE_LOCATION_AVR);
+ INITIALIZE_PORT(ELECTRODE_ELEMENT);
+ INITIALIZE_PORT(ELECTRODE_ELEMENT_TYPE);
+ INITIALIZE_PORT(ELECTRODE_ELEMENT_DEFINITION);
+ INITIALIZE_PORT(ELECTRODE_CONTACT_IMPEDANCE);
  INITIALIZE_PORT(RHS);
 }
 
@@ -53,16 +60,19 @@ void SetupRHSforTDCSandTMSModule::setStateDefaults()
 
 void SetupRHSforTDCSandTMSModule::execute()
 { 
-  auto elc_coil_pos_and_normal = getRequiredInput(ELECTRODE_COIL_POSITIONS_AND_NORMAL);
+  auto elc_coil_pos_and_normal = getRequiredInput(MESH);
   auto elc_count = getRequiredInput(ELECTRODE_COUNT);
-
+  auto scalp_tri_surf = getRequiredInput(SCALP_TRI_SURF_MESH);
+  auto elc_tri_surf = getRequiredInput(ELECTRODE_TRI_SURF_MESH);
+  auto elc_sponge_location = getRequiredInput(ELECTRODE_SPONGE_LOCATION_AVR);
+  
   // obtaining electrode values from state map
   auto elc_vals_from_state = get_state()->getValue(Parameters::ElectrodeTableValues).getList();
   algo().set(Parameters::ELECTRODE_VALUES, elc_vals_from_state);
  
   if (needToExecute())
   {
-    auto output = algo().run_generic(make_input((ELECTRODE_COIL_POSITIONS_AND_NORMAL, elc_coil_pos_and_normal)(ELECTRODE_COUNT, elc_count)));
-	  sendOutputFromAlgorithm(RHS, output);
+    auto output = algo().run_generic(make_input((MESH, elc_coil_pos_and_normal)(ELECTRODE_COUNT, elc_count)(SCALP_TRI_SURF_MESH, scalp_tri_surf)(ELECTRODE_TRI_SURF_MESH, elc_tri_surf)(ELECTRODE_SPONGE_LOCATION_AVR, elc_sponge_location)));
+    sendOutputFromAlgorithm(RHS, output);
   }
 }
