@@ -39,7 +39,7 @@ DEALINGS IN THE SOFTWARE.
 #include <Core/Algorithms/Base/AlgorithmPreconditions.h>
 #include <Core/Algorithms/Base/AlgorithmVariableNames.h>
 #include <Core/Logging/ScopedTimeRemarker.h>
-//#include <Core/Logging/Log.h>
+#include <Core/Logging/Log.h>
 #include <Core/Algorithms/BrainStimulator/SimulateForwardMagneticFieldAlgorithm.h>
 #include <string>
 #include <vector>
@@ -51,7 +51,7 @@ using namespace SCIRun::Core::Datatypes;
 using namespace SCIRun::Core::Thread;
 using namespace SCIRun::Core::Algorithms;
 using namespace SCIRun::Core::Algorithms::BrainStimulator;
-//using namespace SCIRun::Core::Logging;
+using namespace SCIRun::Core::Logging;
 
 AlgorithmInputName SimulateForwardMagneticFieldAlgo::ElectricField("ElectricField");
 AlgorithmInputName SimulateForwardMagneticFieldAlgo::ConductivityTensor("ConductivityTensor");
@@ -263,7 +263,7 @@ boost::tuple<FieldHandle,FieldHandle> CalcFMField::calc_forward_magnetic_field(F
 
   if (!efld_ || !ctfld_ || !ctmsh_ || !dipfld_ || !detfld_ || !emsh_ || !dipmsh_ || !detmsh_)
   { 
-     algo_->error("At least one required input field/mesh has a NULL pointer.");
+     algo_->error("At least one required input field/mesh has a NULL pointer."); 
   }
 
   have_tensors_=false; /// we dont support a conductivity_table in a FieldHandle (could not be set in SCIRun4 as well)
@@ -272,6 +272,7 @@ boost::tuple<FieldHandle,FieldHandle> CalcFMField::calc_forward_magnetic_field(F
   // this code should be able to handle Field<Tensor> as well
   have_tensors_ = ctfld_->get_property("conductivity_table", tens_); 
 #endif
+  LOG_DEBUG(" Note: The original SCIRun4 module looked for a field attribute ''conductivity_table'' of the second module input which could only be set outside of SCIRun4. This function is not available in SCIrun5. " << std::endl);
 
   FieldInformation mfi(detectors);
   mfi.make_lineardata();
@@ -280,8 +281,7 @@ boost::tuple<FieldHandle,FieldHandle> CalcFMField::calc_forward_magnetic_field(F
   FieldHandle magnetic_field_magnitudes = CreateField(mfi,detectors->mesh());
   if (!magnetic_field_magnitudes) 
   {
-    //mod->error("Could not allocate field for magnetic field magnitudes");
-    //return (false);
+    algo_->error("Could not allocate field for magnetic field magnitudes");
   }
 
   magmagfld_ = magnetic_field_magnitudes->vfield();
@@ -290,8 +290,7 @@ boost::tuple<FieldHandle,FieldHandle> CalcFMField::calc_forward_magnetic_field(F
   FieldHandle magnetic_field = CreateField(mfi,detectors->mesh());
   if (!magnetic_field) 
   {
-    //mod->error("Could not allocate field for magnetic field");
-    //return (false);
+    algo_->error("Could not allocate field for magnetic field");
   }
 
   magfld_ = magnetic_field->vfield();
