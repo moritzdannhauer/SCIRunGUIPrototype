@@ -59,16 +59,17 @@ void InterfaceWithCleaverModule::setStateDefaults()
 void InterfaceWithCleaverModule::execute()
 {
   auto fields = getRequiredDynamicInputs(InputFields);
-  
   if (needToExecute())
   {
+    update_state(Executing);
     setAlgoBoolFromState(InterfaceWithCleaverAlgorithm::Verbose);
     setAlgoBoolFromState(InterfaceWithCleaverAlgorithm::Padding);
+    /*
     setAlgoOptionFromState(InterfaceWithCleaverAlgorithm::VolumeScalingOption);
     setAlgoDoubleFromState(InterfaceWithCleaverAlgorithm::VolumeScalingX);
     setAlgoDoubleFromState(InterfaceWithCleaverAlgorithm::VolumeScalingY);
     setAlgoDoubleFromState(InterfaceWithCleaverAlgorithm::VolumeScalingZ);
-
+    */
     auto output = algo().run_generic(withInputData((InputFields, fields)));
 
     sendOutputFromAlgorithm(OutputField,output);
