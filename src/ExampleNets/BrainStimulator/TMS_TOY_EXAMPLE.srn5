@@ -1358,6 +1358,7 @@
 				</second>
 			</item>
 			<item>
+<<<<<<< HEAD
 				<first>ReadField:46</first>
 				<second>
 					<module>
@@ -1415,11 +1416,14 @@
 			</item>
 			<item>
 				<first>SetConductivitiesToTetMesh:5</first>
+=======
+				<first>SetConductivitiesToMesh:5</first>
+>>>>>>> d868e3222eabeada810e21dbd044debbe237a153
 				<second>
 					<module>
 						<package_name_>SCIRun</package_name_>
 						<category_name_>BrainStimulator</category_name_>
-						<module_name_>SetConductivitiesToTetMesh</module_name_>
+						<module_name_>SetConductivitiesToMesh</module_name_>
 					</module>
 					<state>
 						<stateMap>
@@ -2871,7 +2875,7 @@
 					<name>Field</name>
 					<id>0</id>
 				</port1_>
-				<moduleId2_>SetConductivitiesToTetMesh:5</moduleId2_>
+				<moduleId2_>SetConductivitiesToMesh:5</moduleId2_>
 				<port2_>
 					<name>InputField</name>
 					<id>0</id>
@@ -2914,6 +2918,7 @@
 				</port2_>
 			</item>
 			<item>
+<<<<<<< HEAD
 				<moduleId1_>ReadField:46</moduleId1_>
 				<port1_>
 					<name>Field</name>
@@ -2927,6 +2932,9 @@
 			</item>
 			<item>
 				<moduleId1_>SetConductivitiesToTetMesh:5</moduleId1_>
+=======
+				<moduleId1_>SetConductivitiesToMesh:5</moduleId1_>
+>>>>>>> d868e3222eabeada810e21dbd044debbe237a153
 				<port1_>
 					<name>OutputField</name>
 					<id>0</id>
@@ -3409,7 +3417,7 @@
 			</second>
 		</item>
 		<item>
-			<first>SetConductivitiesToTetMesh:5</first>
+			<first>SetConductivitiesToMesh:5</first>
 			<second>
 				<first>-1501</first>
 				<second>-368</second>

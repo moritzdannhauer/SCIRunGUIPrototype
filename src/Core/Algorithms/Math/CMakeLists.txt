@@ -38,6 +38,7 @@ SET(Algorithms_Math_SRCS
   LinearSystem/SolveLinearSystemAlgo.cc
   ParallelAlgebra/ParallelLinearAlgebra.cc
   AddKnownsToLinearSystem.cc
+  BuildNoiseColumnMatrix.cc
 )
 
 SET(Algorithms_Math_HEADERS
@@ -53,6 +54,7 @@ SET(Algorithms_Math_HEADERS
   LinearSystem/SolveLinearSystemAlgo.h
   ParallelAlgebra/ParallelLinearAlgebra.h
   AddKnownsToLinearSystem.h
+  BuildNoiseColumnMatrix.h
 )
 
 SCIRUN_ADD_LIBRARY(Algorithms_Math 
@@ -64,6 +66,7 @@ TARGET_LINK_LIBRARIES(Algorithms_Math
   Core_Datatypes
   Core_Thread
   Algorithms_Base
+  Core_Parser
   ${SCI_BOOST_LIBRARY}
 )
 

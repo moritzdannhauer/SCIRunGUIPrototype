@@ -57,10 +57,10 @@ namespace BrainStimulator {
   ALGORITHM_PARAMETER_DECL(pointdistancebound);
   ALGORITHM_PARAMETER_DECL(number_of_electrodes);
   
-  class SCISHARE SetupRHSforTDCSandTMSAlgorithm : public AlgorithmBase
+  class SCISHARE SetupTDCSAlgorithm : public AlgorithmBase
   {
   public:
-    SetupRHSforTDCSandTMSAlgorithm();
+    SetupTDCSAlgorithm();
     virtual AlgorithmOutput run_generic(const AlgorithmInput& input) const;
 
     boost::tuple<Datatypes::DenseMatrixHandle, Datatypes::DenseMatrixHandle, Datatypes::DenseMatrixHandle,
@@ -81,8 +81,8 @@ namespace BrainStimulator {
     static AlgorithmOutputName SELECTMATRIXINDECES;
     static AlgorithmOutputName ELECTRODE_SPONGE_SURF;
     
-    static Core::Algorithms::AlgorithmParameterName ElecrodeParameterName(int i);
-    static Core::Algorithms::AlgorithmParameterName ElecrodeImpedanceParameterName(int i);
+    static Core::Algorithms::AlgorithmParameterName ElectrodeParameterName(int i);
+    static Core::Algorithms::AlgorithmParameterName ElectrodeImpedanceParameterName(int i);
   private:  
     static const int special_label;
     static const int max_number_of_electrodes;
