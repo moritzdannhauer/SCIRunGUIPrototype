@@ -43,6 +43,7 @@ SET(Interface_Modules_Fields_FORMS
   SetFieldDataDialog.ui
   SetFieldDataToConstantValue.ui
   MapFieldDataFromElemToNodeDialog.ui
+  GetSliceFromStructuredFieldByIndices.ui
   MapFieldDataFromNodeToElemDialog.ui
   MapFieldDataFromSourceToDestinationDialog.ui
   resampleregularmesh.ui #TODO: fix case
@@ -58,6 +59,7 @@ SET(Interface_Modules_Fields_FORMS
   swapfielddatawithmatrixentries.ui
   EditMeshBoundingBox.ui
   ExtractSimpleIsosurface.ui
+  registerwithcorrespondences.ui
 )
 
 SET(Interface_Modules_Fields_HEADERS
@@ -81,6 +83,7 @@ SET(Interface_Modules_Fields_HEADERS
   ProjectPointsOntoMeshDialog.h
   CalculateDistanceToFieldDialog.h
   CalculateDistanceToFieldBoundaryDialog.h
+  GetSliceFromStructuredFieldByIndicesDialog.h
   MapFieldDataOntoElemsDialog.h
   MapFieldDataOntoNodesDialog.h
   ClipFieldByFunctionDialog.h
@@ -91,6 +94,7 @@ SET(Interface_Modules_Fields_HEADERS
   EditMeshBoundingBoxDialog.h
   ConvertIndicesToFieldDataDialog.h
   ExtractSimpleIsosurfaceDialog.h
+  RegisterWithCorrespondencesDialog.h
 )
 
 SET(Interface_Modules_Fields_SOURCES
@@ -112,6 +116,7 @@ SET(Interface_Modules_Fields_SOURCES
   MapFieldDataFromNodeToElemDialog.cc
   MapFieldDataFromSourceToDestinationDialog.cc
   ResampleRegularMeshDialog.cc
+  GetSliceFromStructuredFieldByIndicesDialog.cc
   ProjectPointsOntoMeshDialog.cc
   CalculateDistanceToFieldDialog.cc
   CalculateDistanceToFieldBoundaryDialog.cc
@@ -123,6 +128,7 @@ SET(Interface_Modules_Fields_SOURCES
   EditMeshBoundingBoxDialog.cc
   ConvertIndicesToFieldDataDialog.cc
   ExtractSimpleIsosurfaceDialog.cc
+  RegisterWithCorrespondencesDialog.cc
 )
 
 IF(WITH_TETGEN)
