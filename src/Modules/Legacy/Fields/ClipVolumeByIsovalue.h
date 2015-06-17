@@ -30,8 +30,8 @@
 #define MODULES_LEGACY_FIELDS_ClipVolumeByIsosurface_H__
 
 #include <Dataflow/Network/Module.h>
-#include <Modules/Legacy/Fields/share.h>
 #include <Core/Algorithms/Legacy/Fields/ClipMesh/ClipMeshByIsovalue.h>
+#include <Modules/Legacy/Fields/share.h>
 
 namespace SCIRun {
   namespace Modules {
